@@ -1,0 +1,12 @@
+name: "Flake8GithubWikiAction"
+description: "View Flake8 Stats in a Github Wiki Page"
+inputs:
+  who-to-greet: # id of input
+    description: "Who to greet"
+    required: true
+    default: "World"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.who-to-greet }}
