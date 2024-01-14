@@ -70,6 +70,8 @@ def main():
         print("Data passed in is invalid JSON.")
         sys.exit(1)
 
+    data = json.loads(args.data)
+
     # data = {
     #     ".\\test-files\\bad_file.py": [
     #         {
@@ -85,7 +87,7 @@ def main():
     # }
 
     sorted_files = sorted(
-        [(file, issues) for file, issues in args.data.items()],
+        [(file, issues) for file, issues in data.items()],
         key=lambda x: x[0]
     )
 
