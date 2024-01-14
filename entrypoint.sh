@@ -3,6 +3,9 @@
 remote_origin=$(git remote get-url origin)
 repo_name=$(basename $remote_origin)
 
+git config --global --add safe.directory "$GITHUB_WORKSPACE"
+git config --global --add safe.directory "$GITHUB_WORKSPACE/$2"
+
 flake8_output=$(flake8 --format json $1)
 echo $flake8_outputs
 
@@ -15,8 +18,7 @@ echo $repo_name
 echo $GITHUB_ACTOR
 
 cd $2
-# git config --global --add safe.directory "$GITHUB_WORKSPACE"
-# git config --global --add safe.directory "$GITHUB_WORKSPACE/$2"
+
 # git config --global user.name "${GITHUB_ACTOR}"
 # git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
