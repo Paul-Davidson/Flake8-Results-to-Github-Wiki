@@ -1,5 +1,7 @@
 FROM python:3.10-alpine
 
+RUN printenv
+
 RUN echo $check_destination
 RUN echo $wiki_repo
 
