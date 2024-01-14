@@ -11,4 +11,7 @@ COPY $destination /check
 
 RUN pip install -r /requirements.txt
 
+RUN echo $wiki-repo
+RUN echo $(flake8 --format json /check)
+
 ENTRYPOINT python /entrypoint.py --path-to-wiki-repo $wiki-repo --data $(flake8 --format json /check)
