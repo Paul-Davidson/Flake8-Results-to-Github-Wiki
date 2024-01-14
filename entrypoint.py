@@ -151,11 +151,8 @@ def main():
 
     generated_markdown = generate_markdown(markdown_templates, sorted_files)
 
-    print(generated_markdown)
-
-    # if page does not exist - create
-
-    # else update
+    with open("output.md", "w") as f:
+        f.write(generated_markdown)
 
 
 if __name__ == "__main__":
