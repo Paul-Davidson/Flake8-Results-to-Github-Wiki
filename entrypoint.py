@@ -66,7 +66,7 @@ def generate_markdown(markdown_templates, data):
                 ])
             )
         ),
-        individual_file_issue_breakdown="\n\n".join(
+        individual_file_issue_breakdown="\n".join(
             [
                 replace_repeated_text_with_new_text(
                     markdown_templates[
