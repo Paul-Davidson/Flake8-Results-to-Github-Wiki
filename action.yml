@@ -1,15 +1,15 @@
 name: "Flake8GithubWikiAction"
 description: "Generate current Flake8 stats to a Github Wiki Page"
 inputs:
-  check-destination:
+  check_destination:
     description: "Path to code to check"
     required: true
-  wiki-repo:
+  wiki_repo:
     description: "Wiki repo"
     required: true
 runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - ${{ inputs.check-destination }}
-    - ${{ inputs.wiki-repo }}
+    - ${{ inputs.check_destination }}
+    - ${{ inputs.wiki_repo }}
