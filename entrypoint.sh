@@ -3,9 +3,15 @@
 repo_name=${GITHUB_REPOSITORY#*/}
 
 python_module_file="$1/__init__.py"
+echo "Checking if check directory is module: $python_module_file"
+
 if [ -f "$python_module_file" ]; then
     repo_name=${python_module_file#*/}
 fi
+
+echo "Repo name: $repo_name"
+
+repo_name = ${repo_name// /-}
 
 git config --global --add safe.directory "$GITHUB_WORKSPACE"
 git config --global --add safe.directory "$GITHUB_WORKSPACE/$2"
