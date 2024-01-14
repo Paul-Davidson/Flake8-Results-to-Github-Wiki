@@ -1,12 +1,15 @@
 name: "Flake8GithubWikiAction"
-description: "View Flake8 Stats in a Github Wiki Page"
+description: "Generate current Flake8 stats to a Github Wiki Page"
 inputs:
-  who-to-greet: # id of input
-    description: "Who to greet"
+  check-destination:
+    description: "Path to code to check"
     required: true
-    default: "World"
+  wiki-repo:
+    description: "Wiki repo"
+    required: true
 runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - ${{ inputs.who-to-greet }}
+    - ${{ inputs.check-destination }}
+    - ${{ inputs.wiki-repo }}

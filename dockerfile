@@ -1,5 +1,9 @@
 FROM python:3.10-alpine
 
-COPY entrypoint.sh /entrypoint.sh
+ARG check-destination
+ARG wiki-repo
 
-ENTRYPOINT ["/entrypoint.sh"]
+COPY entrypoint.py /entrypoint.py
+COPY $destination /check
+
+ENTRYPOINT python /entrypoint.py --path-to-wiki-repo $wiki-repo --data $(flake8 --format json /check)

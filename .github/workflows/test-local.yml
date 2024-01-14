@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  flake8_run_job:
+    runs-on: ubuntu-latest
+    name: Give me some flake8 stats
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check out wiki
+        uses: actions/checkout@v4
+        with:
+          repository: 'Paul-Davidson/Flake8GithubWikiAction.wiki'
+          ref: 'master'
+          path: 'wiki'
+          fetch-depth: 0
+      - name: Flake8 action step
+        uses: ./ # Uses an action in the root directory
+        id: yes
+        with:
+          check-destination: 'test-files/*'
+          wiki-repo: ${{ github.workspace }}/wiki

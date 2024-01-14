@@ -9,9 +9,8 @@ def load_markdown_files(files):
     markdown_dict = {}
     for file in files:
         with open(file, "r") as f:
-            markdown_dict[
-                "".join(os.path.basename(file).split(".")[:-1])
-            ] = f.read()
+            markdown_dict["".join(os.path.basename(file).split(".")[:-1])] = \
+                f.read()
     return markdown_dict
 
 
@@ -29,7 +28,9 @@ def generate_markdown(markdown_templates, data):
     """.format(
         pie_chart=markdown_templates["pie_chart"],
         top_10_files_by_count=markdown_templates["top_10_files_by_count"],
-        individual_file_issue_breakdown=markdown_templates["individual_file_issue_breakdown"],
+        individual_file_issue_breakdown=markdown_templates[
+            "individual_file_issue_breakdown"
+        ],
     )
     return content
 
@@ -51,49 +52,38 @@ def is_valid_json(value):
 
 
 def main():
-    # parser = ArgumentParser()
-    # parser.add_argument('--data', help='update data')
-    # parser.add_argument('--path-to-wiki-repo', dest="wiki_repo", required=True)
-    # args = parser.parse_args()
+    parser = ArgumentParser()
+    parser.add_argument("--data", help="flake8 data")
+    parser.add_argument("--path-to-wiki-repo", dest="wiki_repo", required=True)
+    args = parser.parse_args()
 
-    # if not is_git_repo(args.main_repo):
-    #     print(
-    #         "Path to main repo ({}) is not a valid Git repo.".format(
-    #             args.main_repo
-    #         )
-    #     )
-    #     sys.exit(1)
+    if not is_git_repo(args.wiki_repo):
+        print(
+            "Path to wiki repo ({}) is not a valid Git repo."
+            .format(args.wiki_repo)
+        )
+        sys.exit(1)
 
-    # if not is_git_repo(args.wiki_repo):
-    #     print(
-    #         "Path to wiki repo ({}) is not a valid Git repo.".format(
-    #             args.wiki_repo
-    #         )
-    #     )
-    #     sys.exit(1)
+    if not is_valid_json(args.data):
+        print("Data passed in is invalid JSON.")
+        sys.exit(1)
 
-    # if not is_valid_json(args.data):
-    #     print("Data passed in is invalid JSON.")
-    #     sys.exit(1)
-
-    data = {
-        ".\\test-files\\bad_file.py": [
-            {
-                "code": "F821",
-                "filename": ".\\test-files\\bad_file.py",
-                "line_number": 1,
-                "column_number": 1,
-                "text": "undefined name 'unicode'",
-                "physical_line": "unicode\n"
-            }
-        ],
-        ".\\test-files\\good_file.py": []
-    }
+    # data = {
+    #     ".\\test-files\\bad_file.py": [
+    #         {
+    #             "code": "F821",
+    #             "filename": ".\\test-files\\bad_file.py",
+    #             "line_number": 1,
+    #             "column_number": 1,
+    #             "text": "undefined name 'unicode'",
+    #             "physical_line": "unicode\n",
+    #         }
+    #     ],
+    #     ".\\test-files\\good_file.py": [],
+    # }
 
     sorted_files = sorted(
-        [
-            (file, issues) for file, issues in data.items()
-        ],
+        [(file, issues) for file, issues in args.data.items()],
         key=lambda x: x[0]
     )
 
