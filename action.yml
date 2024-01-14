@@ -11,5 +11,5 @@ runs:
   using: "docker"
   image: "Dockerfile"
   env:
-    - ${{ inputs.check-destination }}
-    - ${{ inputs.wiki-repo }}
+    check_destination: ${{ inputs.check-destination }}
+    wiki_repo: ${{ inputs.wiki-repo }}
