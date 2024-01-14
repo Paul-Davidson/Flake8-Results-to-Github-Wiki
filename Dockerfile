@@ -13,6 +13,6 @@ RUN ["pip", "install", "-r", "/requirements.txt"]
 
 RUN ["echo", "$(flake8 --format json /check)"]
 
-RUN flake8_output=$(flake8 --format json /check)
+RUN ["flake8_output", "=", "$(flake8 --format json /check)"]
 
 ENTRYPOINT ["python", "/entrypoint.py", "--path-to-wiki-repo", "$wiki_repo", "--data", "$flake8_output"]
