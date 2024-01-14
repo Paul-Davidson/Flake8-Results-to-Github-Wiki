@@ -1,7 +1,6 @@
 #!/bin/sh -l
 
-remote_origin=$(git remote get-url origin)
-repo_name=$(basename $remote_origin)
+repo_name=${GITHUB_REPOSITORY#*/}
 
 git config --global --add safe.directory "$GITHUB_WORKSPACE"
 git config --global --add safe.directory "$GITHUB_WORKSPACE/$2"
