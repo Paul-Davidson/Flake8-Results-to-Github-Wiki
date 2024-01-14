@@ -64,6 +64,8 @@ def main():
         )
         sys.exit(1)
 
+    print("data provided", args.data)
+
     if not is_valid_json(args.data):
         print("Data passed in is invalid JSON.")
         sys.exit(1)
