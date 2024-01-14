@@ -3,6 +3,8 @@ FROM python:3.10-alpine
 ARG check-destination
 ARG wiki-repo
 
+RUN apk add git
+
 COPY entrypoint.py /entrypoint.py
 COPY requirements.txt /requirements.txt
 COPY $destination /check
