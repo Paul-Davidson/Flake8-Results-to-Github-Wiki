@@ -1,5 +1,6 @@
 #!/bin/sh -l
 
+printenv
 sh -c "git config --global --add safe.directory $2"
 
 repo_name=$(basename $(git remote get-url origin))
