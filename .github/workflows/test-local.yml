@@ -3,6 +3,12 @@ on:
     branches:
       - main
 
+concurrency:
+  group: wiki
+  cancel-in-progress: true
+permissions:
+  contents: write
+
 jobs:
   flake8_run_job:
     runs-on: ubuntu-latest
