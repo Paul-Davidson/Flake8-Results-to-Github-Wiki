@@ -23,5 +23,5 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: yes
         with:
-          check-destination: 'test-files/*'
-          wiki-repo: ${{ github.workspace }}/wiki
+          check_destination: 'test-files/*'
+          wiki_repo: ${{ github.workspace }}/wiki
