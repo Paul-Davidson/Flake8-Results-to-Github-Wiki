@@ -11,6 +11,7 @@ COPY $destination /check
 
 RUN pip install -r /requirements.txt
 
+RUN echo $check-destination
 RUN echo $wiki-repo
 RUN echo $(flake8 --format json /check)
 
