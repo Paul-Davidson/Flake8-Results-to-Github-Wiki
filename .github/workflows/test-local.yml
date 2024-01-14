@@ -24,4 +24,4 @@ jobs:
         id: yes
         with:
           check-destination: 'test-files'
-          wiki-repo: ${{ github.workspace }}/wiki
+          wiki-repo: wiki
