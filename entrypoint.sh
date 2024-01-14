@@ -1,5 +1,7 @@
 #!/bin/sh -l
 
+sh -c "git config --global --add safe.directory $2"
+
 repo_name=$(basename $(git remote get-url origin))
 
 flake8_output=$(flake8 --format json $1)
