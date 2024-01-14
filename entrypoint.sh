@@ -6,6 +6,6 @@ echo $2
 flake8_output=$(flake8 --format json $1)
 echo $flake8_output
 
-echo pwd
+echo $(pwd)
 
 python /entrypoint.py --path-to-wiki-repo $2 --data "$flake8_output"
