@@ -1,7 +1,7 @@
 FROM python:3.10-alpine
 
-ARG check_destination
-ARG wiki_repo
+# ARG check_destination
+# ARG wiki_repo
 
 RUN ["apk", "add", "git"]
 
