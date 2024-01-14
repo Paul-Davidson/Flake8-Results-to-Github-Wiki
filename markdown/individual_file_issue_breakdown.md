@@ -1,6 +1,6 @@
 ### %(filename)s
 #### %(filepath)s
 
-|Location|Code|Message|Link to code|
+|Location|Code|Message|
 |--|--|--|--|
-|Line %(line)s, Column %(column)s|%(code)s|%(message)s|%(github_code_link)s|
+{r}|Line %(line)s, Column %(column)s|%(code)s|%(message)s|{r}

@@ -2,4 +2,4 @@
 
 |File|Issue Count|
 |--|--|
-|%(file)s|%(count)s|
+{r}|%(file)s|%(count)s|{r}

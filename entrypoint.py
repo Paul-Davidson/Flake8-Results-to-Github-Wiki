@@ -14,23 +14,87 @@ def load_markdown_files(files):
     return markdown_dict
 
 
+def get_repeated_text_from_markdown(markdown):
+    return markdown[
+        markdown.index("{r}")+3:
+        markdown.rindex("{r}")
+    ]
+
+
+def replace_repeated_text_with_new_text(markdown, new_text):
+    return (
+        markdown[:markdown.index("{r}")] +
+        new_text +
+        markdown[markdown.rindex("{r}")+3:]
+    )
+
+
+def generate_pie_chart_data(data):
+    return {
+        "covered": len([x for x in data if len(x[1]) == 0]),
+        "not_covered": len([x for x in data if len(x[1]) > 0]),
+    }
+
+
 def generate_markdown(markdown_templates, data):
     content = """
 {pie_chart}
 
-\\\\
-
 {top_10_files_by_count}
 
-\\\\
+## Individual File Issue Breakdown
 
 {individual_file_issue_breakdown}
-    """.format(
-        pie_chart=markdown_templates["pie_chart"],
-        top_10_files_by_count=markdown_templates["top_10_files_by_count"],
-        individual_file_issue_breakdown=markdown_templates[
-            "individual_file_issue_breakdown"
-        ],
+    """.strip().format(
+        pie_chart=(
+            markdown_templates["pie_chart"]
+            % generate_pie_chart_data(data)
+        ),
+        top_10_files_by_count=(
+            replace_repeated_text_with_new_text(
+                markdown_templates["top_10_files_by_count"],
+                "\n".join([
+                    get_repeated_text_from_markdown(
+                        markdown_templates["top_10_files_by_count"]
+                    ) % {
+                        "file": file,
+                        "count": len(issues)
+                    }
+                    for file, issues in
+                    sorted(data, key=lambda x: len(x[1]))
+                    if len(issues) > 0
+                ])
+            )
+        ),
+        individual_file_issue_breakdown="\n\n".join(
+            [
+                replace_repeated_text_with_new_text(
+                    markdown_templates[
+                        "individual_file_issue_breakdown"
+                    ],
+                    "\n".join([
+                        get_repeated_text_from_markdown(
+                            markdown_templates[
+                                "individual_file_issue_breakdown"
+                            ]
+                        ) % {
+                            "line": issue["line_number"],
+                            "column": issue["column_number"],
+                            "code": issue["code"],
+                            "message": issue["text"]
+                        }
+                        for issue in
+                        issues
+                    ])
+                ) % {
+                    "filename": os.path.basename(file),
+                    "filepath": file
+                }
+                for file, issues in
+                data
+                if len(issues) > 0
+            ]
+        )
     )
     return content
 
@@ -71,20 +135,6 @@ def main():
         sys.exit(1)
 
     data = json.loads(args.data)
-
-    # data = {
-    #     ".\\test-files\\bad_file.py": [
-    #         {
-    #             "code": "F821",
-    #             "filename": ".\\test-files\\bad_file.py",
-    #             "line_number": 1,
-    #             "column_number": 1,
-    #             "text": "undefined name 'unicode'",
-    #             "physical_line": "unicode\n",
-    #         }
-    #     ],
-    #     ".\\test-files\\good_file.py": [],
-    # }
 
     sorted_files = sorted(
         [(file, issues) for file, issues in data.items()],
