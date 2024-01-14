@@ -1,11 +1,12 @@
-name: "Flake8GithubWikiAction"
+name: "Flake8 Results to Github Wiki"
+author: "Paul Davidson"
 description: "Generate current Flake8 stats to a Github Wiki Page"
 inputs:
   check-destination:
     description: "Path to code to check"
     required: true
   path-to-wiki-repo:
-    description: "Wiki repo"
+    description: "Path to Wiki repo"
     required: true
 runs:
   using: "docker"
@@ -13,3 +14,6 @@ runs:
   args:
     - ${{ inputs.check-destination }}
     - ${{ inputs.path-to-wiki-repo }}
+branding:
+  icon: 'pie-chart'
+  color: 'orange'
