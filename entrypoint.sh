@@ -14,6 +14,7 @@ echo $repo_name
 echo $GITHUB_ACTOR
 
 cd $2
+git config --global --add safe.directory "$GITHUB_WORKSPACE"
 git config --global --add safe.directory "$GITHUB_WORKSPACE/$2"
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
