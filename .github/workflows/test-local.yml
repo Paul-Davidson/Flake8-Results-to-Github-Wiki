@@ -29,5 +29,5 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: yes
         with:
-          check-destination: 'test-files'
-          wiki-repo: wiki
+          check-destination: test_files
+          path-to-wiki-repo: wiki

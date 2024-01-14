@@ -2,17 +2,18 @@
 
 repo_name=${GITHUB_REPOSITORY#*/}
 
+python_module_file="$1/__init__.py"
+if [ -f "$python_module_file" ]; then
+    repo_name=${python_module_file#*/}
+fi
+
 git config --global --add safe.directory "$GITHUB_WORKSPACE"
 git config --global --add safe.directory "$GITHUB_WORKSPACE/$2"
 
 flake8_output=$(flake8 --format json $1)
-echo $flake8_outputs
 
 python /entrypoint.py --path-to-wiki-repo $2 --data "$flake8_output"
 cp output.md "$2/${repo_name}-Flake8-Report.md"
-
-echo $repo_name
-echo $GITHUB_ACTOR
 
 cd $2
 
