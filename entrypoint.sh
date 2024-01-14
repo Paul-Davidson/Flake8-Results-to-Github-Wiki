@@ -1,14 +1,15 @@
 #!/bin/sh -l
 
-printenv
-
-repo_name=$(basename $(git remote get-url origin))
+remote_origin=$(git remote get-url origin)
+repo_name=$(basename $remote_origin)
 
 flake8_output=$(flake8 --format json $1)
 echo $flake8_outputs
 
 python /entrypoint.py --path-to-wiki-repo $2 --data "$flake8_output"
 cp output.md "wiki/${repo_name}-Flake8-Report.md"
+
+cat "wiki/${repo_name}-Flake8-Report.md"
 
 echo $repo_name
 echo $GITHUB_ACTOR
